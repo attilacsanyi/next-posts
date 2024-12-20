@@ -43,3 +43,6 @@ next-env.d.ts
 # vscode
 .vscode
 .history
+
+# sqlite db
+*.db
