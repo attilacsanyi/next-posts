@@ -2,6 +2,7 @@
 
 import { uploadImage } from "@/lib/cloudinary";
 import { storePost, updatePostLikeStatus } from "@/lib/posts-dao";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const createPost = async (
@@ -58,5 +59,6 @@ export const togglePostLikeStatus = async (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   formData: FormData
 ) => {
-  updatePostLikeStatus(postId, 2);
+  await updatePostLikeStatus(postId, 2);
+  revalidatePath("/", "layout"); // All pages cache revalidation
 };
