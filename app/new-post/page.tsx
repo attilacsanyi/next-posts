@@ -1,13 +1,34 @@
-import FormSubmit from "@/components/form-submit";
+import PostForm from "@/components/post-form";
 import { storePost } from "@/lib/posts-dao";
 import { redirect } from "next/navigation";
 
-export const NewPostPage = async () => {
-  async function createPost(formData: FormData) {
+export const NewPostPage = () => {
+  async function createPost(
+    prevState: { errors: string[] },
+    formData: FormData
+  ) {
     "use server"; // directive needed for creating server actions
     const title = formData.get("title") as string;
-    // const image = formData.get("image") as File;
+    const image = formData.get("image") as File;
     const content = formData.get("content") as string;
+
+    const errors = [];
+
+    if (!title || title.length < 3) {
+      errors.push("Title must be at least 3 characters long");
+    }
+
+    if (!content || content.length < 10) {
+      errors.push("Content must be at least 10 characters long");
+    }
+
+    if (!image || image.size === 0) {
+      errors.push("Image is required");
+    }
+
+    if (errors.length > 0) {
+      return { ...prevState, errors };
+    }
 
     await storePost({
       imageUrl: "",
@@ -19,33 +40,7 @@ export const NewPostPage = async () => {
     redirect("/feed");
   }
 
-  return (
-    <>
-      <h1>Create a new post</h1>
-      <form action={createPost}>
-        <p className="form-control">
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title" />
-        </p>
-        <p className="form-control">
-          <label htmlFor="image">Image URL</label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            id="image"
-            name="image"
-          />
-        </p>
-        <p className="form-control">
-          <label htmlFor="content">Content</label>
-          <textarea id="content" name="content" rows={5} />
-        </p>
-        <p className="form-actions">
-          <FormSubmit />
-        </p>
-      </form>
-    </>
-  );
+  return <PostForm action={createPost} />;
 };
 
 export default NewPostPage;
