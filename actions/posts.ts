@@ -1,7 +1,7 @@
 "use server";
 
 import { uploadImage } from "@/lib/cloudinary";
-import { storePost } from "@/lib/posts-dao";
+import { storePost, updatePostLikeStatus } from "@/lib/posts-dao";
 import { redirect } from "next/navigation";
 
 export const createPost = async (
@@ -51,4 +51,12 @@ export const createPost = async (
   });
 
   redirect("/feed");
+};
+
+export const togglePostLikeStatus = async (
+  postId: number,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  formData: FormData
+) => {
+  updatePostLikeStatus(postId, 2);
 };

@@ -1,3 +1,4 @@
+import { togglePostLikeStatus } from "@/actions/posts";
 import { formatDate } from "@/lib/format";
 import { PostWithDetails } from "@/lib/types";
 import Image from "next/image";
@@ -21,7 +22,12 @@ function Post({ post }: { post: PostWithDetails }) {
             </p>
           </div>
           <div>
-            <LikeButton />
+            <form
+              action={togglePostLikeStatus.bind(null, post.id)}
+              className={post.isLiked ? "liked" : undefined}
+            >
+              <LikeButton />
+            </form>
           </div>
         </header>
         <p>{post.content}</p>
