@@ -1,12 +1,13 @@
 import { formatDate } from "@/lib/format";
 import { PostWithDetails } from "@/lib/types";
+import Image from "next/image";
 import LikeButton from "./like-icon";
 
 function Post({ post }: { post: PostWithDetails }) {
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post.image} alt={post.title} />
+        <Image src={post.image} alt={post.title} className="post-image" fill />
       </div>
       <div className="post-content">
         <header>
