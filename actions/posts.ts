@@ -8,7 +8,6 @@ export const createPost = async (
   prevState: { errors: string[] },
   formData: FormData
 ) => {
-  "use server"; // directive needed for creating server actions
   const title = formData.get("title") as string;
   const image = formData.get("image") as File;
   const content = formData.get("content") as string;
