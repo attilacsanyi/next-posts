@@ -1,4 +1,6 @@
+import FormSubmit from "@/components/form-submit";
 import { storePost } from "@/lib/posts-dao";
+import { redirect } from "next/navigation";
 
 export const NewPostPage = async () => {
   async function createPost(formData: FormData) {
@@ -7,12 +9,14 @@ export const NewPostPage = async () => {
     // const image = formData.get("image") as File;
     const content = formData.get("content") as string;
 
-    storePost({
+    await storePost({
       imageUrl: "",
       title,
       content,
       userId: 1, // TODO: get user id from session
     });
+
+    redirect("/feed");
   }
 
   return (
@@ -37,8 +41,7 @@ export const NewPostPage = async () => {
           <textarea id="content" name="content" rows={5} />
         </p>
         <p className="form-actions">
-          <button type="reset">Reset</button>
-          <button>Create Post</button>
+          <FormSubmit />
         </p>
       </form>
     </>
