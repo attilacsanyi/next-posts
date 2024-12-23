@@ -47,7 +47,8 @@ export const createPost = async (
     imageUrl,
     title,
     content,
-    userId: 1, // TODO: get user id from session
+    // By design until there is no user switch: new post belongs to user id === 1
+    userId: 1,
   });
 
   redirect("/feed");
