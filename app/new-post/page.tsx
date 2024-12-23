@@ -2,7 +2,7 @@ import { storePost } from "@/lib/posts-dao";
 
 export const NewPostPage = async () => {
   async function createPost(formData: FormData) {
-    "use server";
+    "use server"; // directive needed for creating server actions
     const title = formData.get("title") as string;
     // const image = formData.get("image") as File;
     const content = formData.get("content") as string;
@@ -11,7 +11,7 @@ export const NewPostPage = async () => {
       imageUrl: "",
       title,
       content,
-      userId: 1,
+      userId: 1, // TODO: get user id from session
     });
   }
 
