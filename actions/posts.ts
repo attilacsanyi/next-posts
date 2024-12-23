@@ -1,5 +1,6 @@
 "use server";
 
+import { uploadImage } from "@/lib/cloudinary";
 import { storePost } from "@/lib/posts-dao";
 import { redirect } from "next/navigation";
 
@@ -30,8 +31,20 @@ export const createPost = async (
     return { ...prevState, errors };
   }
 
+  let imageUrl = "";
+
+  try {
+    imageUrl = await uploadImage(image);
+  } catch (error) {
+    throw new Error(
+      "Failed to upload image, post was not created. Please try again later.",
+      { cause: error }
+    );
+  }
+
+  // TODO: error handling
   await storePost({
-    imageUrl: "",
+    imageUrl,
     title,
     content,
     userId: 1, // TODO: get user id from session
