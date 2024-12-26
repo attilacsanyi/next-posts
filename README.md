@@ -4,6 +4,7 @@
 ![React 19](https://img.shields.io/badge/-React%2019-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![SQLite](https://img.shields.io/badge/-SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/-Cloudinary-003B57?style=flat-square&logo=cloudinary&logoColor=white)
 
 A comprehensive demonstration of Next.js 15's data mutation, sending storing or changing data based on [Maximilian Schwarzmüller's Udemy course](https://www.udemy.com/course/react-the-complete-guide-incl-redux).
 
