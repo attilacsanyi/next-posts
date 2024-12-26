@@ -3,6 +3,8 @@ import sqlite from "better-sqlite3";
 
 const db = sqlite("posts.db");
 
+const delay = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const getPosts = async (maxNumber?: number) => {
   let limitClause = "";
 
@@ -37,7 +39,8 @@ export const getPosts = async (maxNumber?: number) => {
     ${limitClause}
   `);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await delay();
+
   return (maxNumber ? stmt.all(maxNumber) : stmt.all()) as PostWithDetails[];
 };
 
@@ -45,7 +48,9 @@ export const storePost = async (post: NewPost) => {
   const stmt = db.prepare(`
     INSERT INTO posts (image_url, title, content, user_id)
     VALUES (?, ?, ?, ?)`);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  await delay();
+
   return stmt.run(post.imageUrl, post.title, post.content, post.userId);
 };
 
@@ -61,13 +66,17 @@ export const updatePostLikeStatus = async (postId: number, userId: number) => {
     const stmt = db.prepare(`
       INSERT INTO likes (user_id, post_id)
       VALUES (?, ?)`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    await delay();
+
     return stmt.run(userId, postId);
   } else {
     const stmt = db.prepare(`
       DELETE FROM likes
       WHERE user_id = ? AND post_id = ?`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    await delay();
+
     return stmt.run(userId, postId);
   }
 };
