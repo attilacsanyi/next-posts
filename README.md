@@ -23,6 +23,36 @@ A comprehensive demonstration of Next.js 15's data mutation, sending storing or 
 
 ## Next Poster Demo
 
+- **Next.js 15 Server Features**
+
+  - App Router with file-based routing
+  - Server Components as default (see feed page implementation)
+  - Server Actions for post creation and like handling
+  - Error Boundaries for graceful error handling
+  - Loading UI with Suspense boundaries
+  - Image optimization with Next/Image component
+
+- **React Hooks & State Management**
+
+  - `useActionState` for form submission handling
+  - `useFormStatus` for pending state indication
+  - `useOptimistic` for immediate UI updates on likes
+  - `Suspense` for loading states
+  - Form validation with server-side error handling
+
+- **Data & Image Management**
+
+  - SQLite database with `better-sqlite3`
+  - Cloudinary integration for image uploads
+  - Optimistic updates for like interactions
+  - Cache revalidation with `revalidatePath`
+
 ## Screenshots
 
-WIP
+Posts Home
+
+<img src="public/readme/next-posts-home.png" width="500" alt="Next Posts Home" />
+
+New Post
+
+<img src="public/readme/next-posts-detail.png" width="500" alt="New Post" />
