@@ -1,11 +1,12 @@
 import { NewPost, PostWithDetails } from "@/lib/types";
 import sqlite from "better-sqlite3";
+import { cache } from "react";
 
 const db = sqlite("posts.db");
 
 const delay = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const getPosts = async (maxNumber?: number) => {
+export const getPosts = cache(async (maxNumber?: number) => {
   let limitClause = "";
 
   if (maxNumber) {
@@ -42,7 +43,7 @@ export const getPosts = async (maxNumber?: number) => {
   await delay();
 
   return (maxNumber ? stmt.all(maxNumber) : stmt.all()) as PostWithDetails[];
-};
+});
 
 export const storePost = async (post: NewPost) => {
   const stmt = db.prepare(`
