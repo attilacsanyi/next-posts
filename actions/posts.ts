@@ -51,6 +51,7 @@ export const createPost = async (
     userId: 1,
   });
 
+  revalidatePath("/", "layout"); // All pages cache revalidation, however not necessary we see this later
   redirect("/feed");
 };
 
