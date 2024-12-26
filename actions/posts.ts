@@ -2,7 +2,7 @@
 
 import { uploadImage } from "@/lib/cloudinary";
 import { storePost, updatePostLikeStatus } from "@/lib/posts-dao";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const createPost = async (
@@ -51,7 +51,9 @@ export const createPost = async (
     userId: 1,
   });
 
-  revalidatePath("/", "layout"); // All pages cache revalidation, however not necessary we see this later
+  //revalidatePath("/", "layout"); // All pages cache revalidation
+  //revalidatePath("/feed"); // Specific page cache revalidation
+  revalidateTag("posts");
   redirect("/feed");
 };
 

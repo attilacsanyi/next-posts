@@ -1,20 +1,21 @@
 import { NewPost, PostWithDetails } from "@/lib/types";
 import sqlite from "better-sqlite3";
-import { cache } from "react";
+import { unstable_cache as nextCache } from "next/cache";
 
 const db = sqlite("posts.db");
 
 const delay = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const getPosts = cache(async (maxNumber?: number) => {
-  let limitClause = "";
+export const getPosts = nextCache(
+  async (maxNumber?: number) => {
+    let limitClause = "";
 
-  if (maxNumber) {
-    limitClause = "LIMIT ?";
-  }
+    if (maxNumber) {
+      limitClause = "LIMIT ?";
+    }
 
-  // By design until there is no user switch: likes belongs to user id === 2 for now
-  const stmt = db.prepare(`
+    // By design until there is no user switch: likes belongs to user id === 2 for now
+    const stmt = db.prepare(`
     SELECT 
       posts.id,
       image_url AS image,
@@ -40,10 +41,13 @@ export const getPosts = cache(async (maxNumber?: number) => {
     ${limitClause}
   `);
 
-  await delay();
+    await delay();
 
-  return (maxNumber ? stmt.all(maxNumber) : stmt.all()) as PostWithDetails[];
-});
+    return (maxNumber ? stmt.all(maxNumber) : stmt.all()) as PostWithDetails[];
+  },
+  ["All Posts"],
+  { tags: ["posts"] }
+);
 
 export const storePost = async (post: NewPost) => {
   const stmt = db.prepare(`
