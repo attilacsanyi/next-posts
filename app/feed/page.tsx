@@ -1,7 +1,7 @@
 import Posts from "@/components/posts";
 import { getPosts } from "@/lib/posts-dao";
 
-export const FeedPage = async () => {
+const FeedPage = async () => {
   const posts = await getPosts();
   return (
     <>
