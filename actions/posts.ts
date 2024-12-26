@@ -57,7 +57,7 @@ export const createPost = async (
 export const togglePostLikeStatus = async (
   postId: number,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  formData: FormData
+  formData?: FormData
 ) => {
   await updatePostLikeStatus(postId, 2);
   revalidatePath("/", "layout"); // All pages cache revalidation
