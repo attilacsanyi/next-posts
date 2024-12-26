@@ -53,6 +53,10 @@ Posts Home
 
 <img src="public/readme/next-posts-home.png" width="500" alt="Next Posts Home" />
 
+Posts Feed
+
+<img src="public/readme/next-posts-feed.png" width="500" alt="Next Posts Feed" />
+
 New Post
 
 <img src="public/readme/next-posts-detail.png" width="500" alt="New Post" />
