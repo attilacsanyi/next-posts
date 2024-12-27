@@ -43,7 +43,7 @@ export default function Posts({ posts }: { posts: PostWithDetails[] }) {
     <ul className="posts">
       {optimisticPosts.map((post) => (
         <li key={post.id}>
-          <Post post={post} action={updatePost} />
+          <Post post={post} updateAction={updatePost} />
         </li>
       ))}
     </ul>

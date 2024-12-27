@@ -6,10 +6,10 @@ import LikeButton from "./like-icon";
 
 const Post = ({
     post,
-    action,
+    updateAction,
   }: {
     post: PostWithDetails;
-    action: (postId: number) => Promise<void>;
+    updateAction: (postId: number) => Promise<void>;
   }) => {
     return (
         <article className="post">
@@ -29,7 +29,7 @@ const Post = ({
               </div>
               <div>
                 <form
-                  action={action.bind(null, post.id)}
+                  action={updateAction.bind(null, post.id)}
                   className={post.isLiked ? "liked" : undefined}
                 >
                   <LikeButton />
