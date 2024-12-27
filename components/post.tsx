@@ -17,7 +17,7 @@ const Post = ({
     return (
         <article className="post">
           <div className="post-image">
-            <Image src={post.imageUrl} alt={post.title} className="post-image" fill />
+            <Image src={post.imageUrl} alt={post.title} fill />
           </div>
           <div className="post-content">
             <header>
