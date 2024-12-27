@@ -1,31 +1,40 @@
 "use client";
 
-import { togglePostLikeStatus } from "@/actions/posts";
+import {
+  deletePost as deletePostAction,
+  togglePostLikeStatus as togglePostLikeStatusAction,
+} from "@/actions/posts";
 import Post from "@/components/post";
 import { PostWithDetails } from "@/lib/types";
 import { useOptimistic } from "react";
 
-
 export default function Posts({ posts }: { posts: PostWithDetails[] }) {
   const [optimisticPosts, updateOptimisticPosts] = useOptimistic(
     posts,
-    (prevPosts, updatedPostId: number) => {
-      const updatedPostIndex = prevPosts.findIndex(
-        ({ id: postId }) => postId === updatedPostId
-      );
+    (prevPosts, { postId, action }: { postId: number; action: "like" | "delete" }) => {
+      const foundPostIndex = prevPosts.findIndex((post) => post.id === postId);
 
-      if (updatedPostIndex === -1) {
+      if (foundPostIndex === -1) {
         return prevPosts;
       }
 
-      const updatedPost = { ...prevPosts[updatedPostIndex] };
+      // Delete action
+      if (action === "delete") {
+        return [
+          ...prevPosts.slice(0, foundPostIndex),
+          ...prevPosts.slice(foundPostIndex + 1),
+        ];
+      }
+
+      // Like action
+      const updatedPost = { ...prevPosts[foundPostIndex] };
       updatedPost.likes = updatedPost.likes + (updatedPost.likes ? -1 : 1);
       updatedPost.isLiked = !updatedPost.isLiked;
 
       return [
-        ...prevPosts.slice(0, updatedPostIndex),
+        ...prevPosts.slice(0, foundPostIndex),
         updatedPost,
-        ...prevPosts.slice(updatedPostIndex + 1),
+        ...prevPosts.slice(foundPostIndex + 1),
       ];
     }
   );
@@ -35,15 +44,20 @@ export default function Posts({ posts }: { posts: PostWithDetails[] }) {
   }
 
   const updatePost = async (postId: number) => {
-    updateOptimisticPosts(postId);
-    await togglePostLikeStatus(postId);
+    updateOptimisticPosts({ postId, action: "like" });
+    await togglePostLikeStatusAction(postId);
+  };
+
+  const deletePost = async (postId: number, imageUrl: string) => {
+    updateOptimisticPosts({ postId, action: "delete" });
+    await deletePostAction(postId, imageUrl);
   };
 
   return (
     <ul className="posts">
       {optimisticPosts.map((post) => (
         <li key={post.id}>
-          <Post post={post} updateAction={updatePost} />
+          <Post post={post} updateAction={updatePost} deleteAction={deletePost} />
         </li>
       ))}
     </ul>

@@ -185,12 +185,18 @@ main {
   color: #b1a9ac;
 }
 
-.like-button {
+.post-actions {
+  display: flex;
+}
+
+.like-button,
+.delete-button {
   background-color: transparent;
   border: none;
 }
 
-.like-button svg {
+.like-button svg,
+.delete-button svg {
   width: 1.5rem;
   height: 1.5rem;
   fill: transparent;
@@ -198,7 +204,9 @@ main {
 }
 
 .like-button:hover svg,
+.delete-button:hover svg,
 .liked .like-button svg {
+  cursor: pointer;
   fill: #e32195;
 }
 

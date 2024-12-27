@@ -1,7 +1,11 @@
 "use server";
 
-import { uploadImage } from "@/lib/cloudinary";
-import { storePost, updatePostLikeStatus } from "@/lib/posts-dao";
+import { deleteImage, uploadImage } from "@/lib/cloudinary";
+import {
+  deletePost as deletePostDao,
+  storePost,
+  updatePostLikeStatus,
+} from "@/lib/posts-dao";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -64,4 +68,15 @@ export const togglePostLikeStatus = async (
 ) => {
   await updatePostLikeStatus(postId, 2);
   revalidatePath("/", "layout"); // All pages cache revalidation
+};
+
+export const deletePost = async (postId: number, imageUrl: string) => {
+  await deletePostDao(postId);
+  try {
+    await deleteImage(imageUrl);
+  } catch (error) {
+    throw new Error("Failed to delete image.", { cause: error });
+  }
+
+  revalidateTag("posts");
 };
