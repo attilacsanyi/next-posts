@@ -21,6 +21,15 @@ A comprehensive demonstration of Next.js 15's data mutation, sending storing or 
    pnpm db:init
    ```
 
+3. Images will be stored in Cloudinary. Set up the following environment variables:
+
+   ```bash
+   CLOUDINARY_CLOUD_NAME=
+   CLOUDINARY_API_KEY=
+   CLOUDINARY_API_SECRET=
+   CLOUDINARY_FOLDER=<your-folder-name-to-store-uploaded-images>
+   ```
+
 ## Next Poster Demo
 
 - **Next.js 15 Server Features**
