@@ -35,7 +35,7 @@ const Post = ({
           alt={post.title}
           quality={50}
           fill
-          sizes="8rem"
+          sizes="128px"
         />
       </div>
       <div className="post-content">
