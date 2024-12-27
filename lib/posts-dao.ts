@@ -44,9 +44,9 @@ export const getPosts = async (maxNumber?: number) => {
   await delay();
 
   cacheTag("posts");
-  const posts = maxNumber
-    ? stmt.all(maxNumber)
-    : (stmt.all() as PostWithDetails[]);
+  const posts = (
+    maxNumber ? stmt.all(maxNumber) : stmt.all()
+  ) as PostWithDetails[];
 
   return posts;
 };
