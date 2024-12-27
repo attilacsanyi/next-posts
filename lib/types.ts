@@ -11,7 +11,7 @@ export type Post = {
 // Represents the query result with joined and computed fields
 export type PostWithDetails = {
   id: number;
-  image: string;
+  imageUrl: string;
   title: string;
   content: string;
   createdAt: string;

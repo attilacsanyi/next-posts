@@ -18,7 +18,7 @@ export const getPosts = async (maxNumber?: number) => {
   const stmt = db.prepare(`
     SELECT 
       posts.id,
-      image_url AS image,
+      image_url AS imageUrl,
       title,
       content, 
       created_at AS createdAt,

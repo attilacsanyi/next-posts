@@ -17,7 +17,7 @@ const Post = ({
     return (
         <article className="post">
           <div className="post-image">
-            <Image src={post.image} alt={post.title} className="post-image" fill />
+            <Image src={post.imageUrl} alt={post.title} className="post-image" fill />
           </div>
           <div className="post-content">
             <header>
@@ -38,7 +38,7 @@ const Post = ({
                   <LikeButton />
                 </form>
                 {!post.isLiked && (
-                  <form action={deleteAction.bind(null, post.id, post.image)}>
+                  <form action={deleteAction.bind(null, post.id, post.imageUrl)}>
                     <DeleteButton />
                   </form>
                 )}
